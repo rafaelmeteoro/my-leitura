@@ -1,29 +1,56 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
-import * as Api from './utils/Api'
+import React, { Component } from 'react'
+import { BrowserRouter } from 'react-router-dom'
+import './App.css'
+import { connect } from 'react-redux'
+import { fetchCategories } from './actions'
+import { AppBar, BottomNavigation, BottomNavigationItem, Paper } from 'material-ui'
+// import FavoriteIcon from 'material-ui-icons/Favorite'
+import FavIcon from 'material-ui/svg-icons/action/alarm-add'
+
+import OutroIcon from 'material-ui/FontIcon'
+
+const outro = <OutroIcon className="material-icons">outroios</OutroIcon>
 
 class App extends Component {
 
     componentDidMount() {
-        Api.getAllCategories().then(data => {
-            console.log(data);
-        })
+        this.props.fetchCategories()
     }
 
     render() {
         return (
-            <div className="App">
-                <header className="App-header">
-                    <img src={logo} className="App-logo" alt="logo" />
-                    <h1 className="App-title">Welcome to React</h1>
-                </header>
-                <p className="App-intro">
-                    To get started, edit <code>src/App.js</code> and save to reload.
-                </p>
-            </div>
+            <BrowserRouter>
+                <div>
+                    <AppBar
+                        title='MyLeitura'
+                        showMenuIconButton={false}
+                    />
+                    <Paper zDepth={1}>
+                        <BottomNavigation>
+                            <BottomNavigationItem
+                                label="outros"
+                                icon={outro}
+                            />
+                            <BottomNavigationItem
+                                label="2"
+                                icon={outro}
+                            />
+                        </BottomNavigation>
+                    </Paper>
+                </div>
+            </BrowserRouter>
         );
     }
 }
 
-export default App;
+const mapStateToProps = ({ categories }) => ({
+    categories
+})
+
+const mapDispatchToProps = (dispatch) => ({
+    fetchCategories() {
+        dispatch(fetchCategories())
+    }
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
