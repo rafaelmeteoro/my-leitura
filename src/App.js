@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import * as ReadableAPI from './utils/ReadableAPI'
+import * as Api from './utils/Api'
 
 class App extends Component {
 
     componentDidMount() {
-        ReadableAPI.getAllCategories().then(data => {
+        Api.getAllCategories().then(data => {
             console.log(data);
         })
     }
