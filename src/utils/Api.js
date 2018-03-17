@@ -1,6 +1,9 @@
 const api = "http://localhost:3001"
 
-let token = "any-token"
+let token = localStorage.token
+if (!token) {
+    token = localStorage.token = Math.randon().toString(36).substr(-8)
+}
 
 const headers = {
     'Accept': 'application/json',

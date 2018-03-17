@@ -3,13 +3,13 @@ import { BrowserRouter } from 'react-router-dom'
 import './App.css'
 import { connect } from 'react-redux'
 import { fetchCategories } from './actions'
-import { AppBar, BottomNavigation, BottomNavigationItem, Paper } from 'material-ui'
-// import FavoriteIcon from 'material-ui-icons/Favorite'
-import FavIcon from 'material-ui/svg-icons/action/alarm-add'
+import { capitalize } from './utils/helpers'
+import AppBar from 'material-ui/AppBar'
+import Paper from 'material-ui/Paper'
+import { BottomNavigation, BottomNavigationItem } from 'material-ui/BottomNavigation'
+import FontIcon from 'material-ui/FontIcon'
 
-import OutroIcon from 'material-ui/FontIcon'
-
-const outro = <OutroIcon className="material-icons">outroios</OutroIcon>
+const favoritesIcon = <FontIcon className='material-icons'>favorite</FontIcon>
 
 class App extends Component {
 
@@ -18,6 +18,9 @@ class App extends Component {
     }
 
     render() {
+
+        const { categories } = this.props
+
         return (
             <BrowserRouter>
                 <div>
@@ -27,14 +30,13 @@ class App extends Component {
                     />
                     <Paper zDepth={1}>
                         <BottomNavigation>
-                            <BottomNavigationItem
-                                label="outros"
-                                icon={outro}
-                            />
-                            <BottomNavigationItem
-                                label="2"
-                                icon={outro}
-                            />
+                            {categories && categories.map((category) => (
+                                <BottomNavigationItem
+                                    key={category.name}
+                                    label={capitalize(category.name)}
+                                    icon={favoritesIcon}
+                                />
+                            ))}
                         </BottomNavigation>
                     </Paper>
                 </div>
