@@ -3,6 +3,7 @@ import * as Api from '../utils/Api'
 // Action types
 export const FETCH_CATEGORIES = 'FETCH_CATEGORIES'
 export const FETCH_POSTS = 'FETCH_POSTS'
+export const UPDATE_POST = 'UPDATE_POST'
 
 // Categories actions
 export const fetchCategories = () => dispatch =>
@@ -21,3 +22,11 @@ export const fetchPosts = () => dispatch =>
             data
         })
     );
+
+export const votePost = (id, option) => dispatch =>
+    Api.votePost(id, option).then(data =>
+        dispatch({
+            type: UPDATE_POST,
+            data
+        })
+    )

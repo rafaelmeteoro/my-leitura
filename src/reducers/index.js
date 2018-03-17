@@ -14,6 +14,8 @@ const posts = (state = [], action) => {
     switch (action.type) {
         case ACTIONS.FETCH_POSTS:
             return [...action.data]
+        case ACTIONS.UPDATE_POST:
+            return state.map(post => (action.data.id === post.id ? action.data : post))
         default:
             return state
     }
