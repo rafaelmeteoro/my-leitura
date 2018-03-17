@@ -4,6 +4,7 @@ import './App.css'
 import { connect } from 'react-redux'
 import { fetchCategories, fetchPosts } from './actions'
 import { capitalize } from './utils/helpers'
+import PostList from './components/PostList'
 import AppBar from 'material-ui/AppBar'
 import Paper from 'material-ui/Paper'
 import { BottomNavigation, BottomNavigationItem } from 'material-ui/BottomNavigation'
@@ -29,6 +30,9 @@ class App extends Component {
                         title='MyLeitura'
                         showMenuIconButton={false}
                     />
+
+                    <PostList posts={posts} />
+
                     <Paper zDepth={1}>
                         <BottomNavigation>
                             {categories && categories.map((category) => (
