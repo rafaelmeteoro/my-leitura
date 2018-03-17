@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { BrowserRouter } from 'react-router-dom'
 import './App.css'
 import { connect } from 'react-redux'
-import { fetchCategories } from './actions'
+import { fetchCategories, fetchPosts } from './actions'
 import { capitalize } from './utils/helpers'
 import AppBar from 'material-ui/AppBar'
 import Paper from 'material-ui/Paper'
@@ -15,11 +15,12 @@ class App extends Component {
 
     componentDidMount() {
         this.props.fetchCategories()
+        this.props.fetchPosts()
     }
 
     render() {
 
-        const { categories } = this.props
+        const { categories, posts } = this.props
 
         return (
             <BrowserRouter>
@@ -45,13 +46,17 @@ class App extends Component {
     }
 }
 
-const mapStateToProps = ({ categories }) => ({
-    categories
+const mapStateToProps = ({ categories, posts }) => ({
+    categories,
+    posts
 })
 
 const mapDispatchToProps = (dispatch) => ({
     fetchCategories() {
         dispatch(fetchCategories())
+    },
+    fetchPosts() {
+        dispatch(fetchPosts())
     }
 })
 
