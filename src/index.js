@@ -8,8 +8,18 @@ import reducer from './reducers'
 import { Provider } from 'react-redux'
 import thunk from 'redux-thunk'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import getMuiTheme from 'material-ui/styles/getMuiTheme'
+import { red100, red500, red700 } from 'material-ui/styles/colors'
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
+
+const muiTheme = getMuiTheme({
+    palette: {
+        primary1Color: red500,
+        primary2Color: red700,
+        primary3Color: red100,
+    }
+})
 
 const store = createStore(
     reducer,
@@ -20,7 +30,7 @@ const store = createStore(
 
 ReactDOM.render(
     <Provider store={store}>
-        <MuiThemeProvider>
+        <MuiThemeProvider muiTheme={muiTheme}>
             <App/>
         </MuiThemeProvider>
     </Provider>,
