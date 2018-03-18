@@ -16,6 +16,8 @@ const posts = (state = [], action) => {
             return [...action.data]
         case ACTIONS.UPDATE_POST:
             return state.map(post => (action.data.id === post.id ? action.data : post))
+        case ACTIONS.DELETE_POST:
+            return state.filter(post => post.id !== action.value.id)
         default:
             return state
     }

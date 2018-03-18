@@ -4,6 +4,7 @@ import * as Api from '../utils/Api'
 export const FETCH_CATEGORIES = 'FETCH_CATEGORIES'
 export const FETCH_POSTS = 'FETCH_POSTS'
 export const UPDATE_POST = 'UPDATE_POST'
+export const DELETE_POST = 'DELETE_POST'
 
 // Categories actions
 export const fetchCategories = () => dispatch =>
@@ -30,3 +31,13 @@ export const votePost = (id, option) => dispatch =>
             data
         })
     )
+
+export const deletePost = data => dispatch =>
+    Api.deletePost(data.id).then(res => {
+        if (res.status === 200) {
+            dispatch({
+                type: DELETE_POST,
+                value: data
+            })
+        }
+    })

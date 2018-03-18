@@ -1,16 +1,21 @@
 import React, { Component } from 'react'
 import { formatTimestamp } from '../utils/helpers'
-import { votePost } from '../actions'
+import { votePost, deletePost } from '../actions'
 import { Card, CardTitle, CardText, Divider } from 'material-ui'
 import { CardActions, IconButton } from 'material-ui'
 import ActionThumbUp from 'material-ui/svg-icons/action/thumb-up'
 import ActionThumbDown from 'material-ui/svg-icons/action/thumb-down'
+import Delete from 'material-ui/svg-icons/action/delete'
 import { connect } from 'react-redux'
 
 class Post extends Component {
 
     handleVote = (post, option) => {
         this.props.votePost(post.id, option)
+    }
+
+    handleDeletePost = (post) => {
+        this.props.deletePost(post)
     }
 
     render() {
@@ -34,6 +39,9 @@ class Post extends Component {
                         <IconButton tooltip='Sub vote' onClick={() => this.handleVote(post, 'downVote')}>
                             <ActionThumbDown />
                         </IconButton>
+                        <IconButton tooltip='Delete post' onClick={() => this.handleDeletePost(post)}>
+                            <Delete />
+                        </IconButton>
                     </CardActions>
                 </Card>
             </div>
@@ -44,6 +52,9 @@ class Post extends Component {
 const mapDispatchToProps = dispatch => ({
     votePost(post, option) {
         dispatch(votePost(post, option))
+    },
+    deletePost(post) {
+        dispatch(deletePost(post))
     }
 })
 
