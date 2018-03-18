@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 import './index.css'
 import App from './App'
 import registerServiceWorker from './registerServiceWorker'
+import { BrowserRouter } from 'react-router-dom'
 import { createStore, applyMiddleware, compose } from 'redux'
 import reducer from './reducers'
 import { Provider } from 'react-redux'
@@ -31,7 +32,9 @@ const store = createStore(
 ReactDOM.render(
     <Provider store={store}>
         <MuiThemeProvider muiTheme={muiTheme}>
-            <App/>
+            <BrowserRouter>
+                <App/>
+            </BrowserRouter>
         </MuiThemeProvider>
     </Provider>,
     document.getElementById('root')
