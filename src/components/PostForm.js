@@ -4,13 +4,89 @@ import { capitalize } from '../utils/helpers'
 import AppBar from 'material-ui/AppBar'
 import { TextField, SelectField, Card, MenuItem } from 'material-ui'
 import RaisedButton from 'material-ui/RaisedButton'
+import FlatButton from 'material-ui/FlatButton'
+import Dialog from 'material-ui/Dialog'
+import uuid from 'uuid'
 
 class PostForm extends Component {
+
+    state = {
+        title: this.props.post ? this.props.post.title : '',
+        body: this.props.post ? this.props.post.body : '',
+        author: this.props.post ? this.props.post.author : '',
+        category: this.props.post ? this.props.post.category : '',
+        finish: false,
+        openDialogError: false,
+    }
+
+    finish = () => {
+        this.setState({
+            finish: true
+        })
+    }
+
+    handleFormChange = (event, value) => {
+        this.setState({
+            [event.target.id]: value
+        })
+    }
+
+    handleCategoryChange = (event, index, value) => {
+        this.setState({
+            category: value
+        })
+    }
+
+    showErrorDialog = () => {
+        this.setState({
+            openDialogError: !this.state.openDialogError
+        })
+    }
+
+    hideErrorDialog = () => {
+        this.setState({
+            openDialogError: false
+        })
+    }
+
+    hasError = () => {
+        const { title, body, author, category } = this.state
+
+        return (
+            title.length === 0 ||
+            body.length === 0 ||
+            author.length === 0 ||
+            category.length === 0
+        ) ? true : false
+    }
+
+    submitPost = (event) => {
+        console.log(uuid().split('-').join(''));
+        if (this.hasError()) {
+            this.showErrorDialog()
+        } else {
+            let newPost = {
+                id: uuid().split('-').join(''),
+                timestamp: Date.now(),
+                title: this.state.title,
+                body: this.state.body,
+                author: this.state.author,
+                category: this.state.category
+            }
+        }
+    }
 
     render() {
 
         const { categories } = this.props
-        console.log(categories)
+
+        const actions = [
+            <FlatButton
+                label='OK'
+                primary={true}
+                onClick={this.hideErrorDialog}
+            />
+        ]
 
         return (
             <div>
@@ -22,22 +98,30 @@ class PostForm extends Component {
                 <Card style={{ padding: 20, marginLeft: 20, marginRight: 20, marginTop: 20, marginBottom: 20}}>
                     <TextField
                         id='title'
+                        value={this.state.title}
+                        onChange={this.handleFormChange}
                         floatingLabelText='Title'
                     />
                     <br />
                     <TextField
                         id='body'
+                        value={this.state.body}
+                        onChange={this.handleFormChange}
                         floatingLabelText='Body'
                     />
                     <br />
                     <TextField
                         id='author'
+                        value={this.state.author}
+                        onChange={this.handleFormChange}
                         floatingLabelText='Author'
                     />
                     <br />
                     {categories && categories.length > 0 && (
                         <SelectField
                             floatingLabelText='Category'
+                            value={this.state.category}
+                            onChange={this.handleCategoryChange}
                         >
                             {categories.map((category) => (
                                 <MenuItem
@@ -52,8 +136,19 @@ class PostForm extends Component {
                     <RaisedButton
                         label='Ok'
                         primary={true}
+                        onClick={this.submitPost}
                     />
                 </Card>
+
+                <Dialog
+                    title='Error'
+                    actions={actions}
+                    modal={false}
+                    open={this.state.openDialogError}
+                    onRequestClose={this.hideErrorDialog}
+                >
+                    Please fill all fields.
+                </Dialog>
 
             </div>
         )
