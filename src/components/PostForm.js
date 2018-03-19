@@ -182,8 +182,6 @@ class PostForm extends Component {
 const mapStateToProps = ({ categories, posts }, ownProps) => {
     const { postId } = ownProps.match.params
 
-    console.log(ownProps);
-
     return {
         post: posts && posts.find((post) => post.id === postId),
         categories

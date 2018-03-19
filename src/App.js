@@ -8,12 +8,8 @@ class App extends Component {
     render() {
         return (
             <div>
-                <Route exact path='/' render={() => (
-                    <Main />
-                )}/>
-                <Route exact path='/post/new' render={() => (
-                    <PostForm />
-                )}/>
+                <Route exact path='/' component={Main} />
+                <Route exact path='/post/new' component={PostForm} />
                 <Route exact path='/post/edit/:postId' component={PostForm} />
             </div>
         );
