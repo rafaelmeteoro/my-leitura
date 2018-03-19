@@ -22,10 +22,6 @@ class PostDetails extends Component {
         this.props.fetchCommentsByPost(postId)
     }
 
-    componentWillReceiveProps(nextProps) {
-
-    }
-
     showDialogComment = () => {
         this.setState({
             openDialogComment: !this.state.openDialogComment

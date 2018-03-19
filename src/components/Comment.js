@@ -6,9 +6,20 @@ import ActionThumbDown from 'material-ui/svg-icons/action/thumb-down'
 import Delete from 'material-ui/svg-icons/action/delete'
 import Edit from 'material-ui/svg-icons/image/edit'
 import { connect } from 'react-redux'
-import { voteComment, deleteComment } from '../actions'
+import { voteComment, deleteComment, updateComment } from '../actions'
+import CommentDialog from './CommentDialog'
 
 class Comment extends Component {
+
+    state = {
+        openDialogComment: false
+    }
+
+    showDialogComment = () => {
+        this.setState({
+            openDialogComment: !this.state.openDialogComment
+        })
+    }
 
     handleVote = (comment, option) => {
         this.props.voteComment(comment.id, option)
@@ -41,11 +52,19 @@ class Comment extends Component {
                         <IconButton tooltip='Delete comment' onClick={() => this.handleDeleteComment(comment)}>
                             <Delete />
                         </IconButton>
-                        <IconButton tooltip='Edit comment'>
+                        <IconButton tooltip='Edit comment' onClick={this.showDialogComment}>
                             <Edit />
                         </IconButton>
                     </CardActions>
                 </Card>
+                {this.state.openDialogComment && (
+                    <CommentDialog
+                        openDialog={this.state.openDialogComment}
+                        closeDialog={this.showDialogComment}
+                        comment={comment}
+                        funcOp={this.props.updateComment}
+                    />
+                )}
             </div>
         )
     }
@@ -57,6 +76,9 @@ const mapDispatchToProps = dispatch => ({
     },
     deleteComment(comment) {
         dispatch(deleteComment(comment))
+    },
+    updateComment(comment) {
+        dispatch(updateComment(comment))
     }
 })
 

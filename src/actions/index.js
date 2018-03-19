@@ -103,3 +103,11 @@ export const deleteComment = data => dispatch =>
             value: data
         })
     })
+
+export const updateComment = comment => dispatch =>
+    Api.updateComment(comment).then(data => {
+        dispatch({
+            type: UPDATE_COMMENT,
+            data
+        })
+    })
