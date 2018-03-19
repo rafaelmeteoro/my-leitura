@@ -7,7 +7,7 @@ import RaisedButton from 'material-ui/RaisedButton'
 import FlatButton from 'material-ui/FlatButton'
 import Dialog from 'material-ui/Dialog'
 import uuid from 'uuid'
-import { addPost } from '../actions'
+import { addPost, updatePost } from '../actions'
 import { Redirect } from 'react-router-dom'
 
 class PostForm extends Component {
@@ -64,21 +64,33 @@ class PostForm extends Component {
 
     submitPost = (event) => {
 
-        const { addPost } = this.props
+        const { addPost, updatePost, post } = this.props
 
         if (this.hasError()) {
             this.showErrorDialog()
         } else {
-            let newPost = {
-                id: uuid().split('-').join(''),
-                timestamp: Date.now(),
-                title: this.state.title,
-                body: this.state.body,
-                author: this.state.author,
-                category: this.state.category
+            let newPost = {}
+            if (post) {
+                newPost = {
+                    ...post,
+                    timestamp: Date.now(),
+                    title: this.state.title,
+                    body: this.state.body,
+                    author: this.state.author,
+                    category: this.state.category
+                }
+                updatePost(newPost)
+            } else {
+                newPost = {
+                    id: uuid().split('-').join(''),
+                    timestamp: Date.now(),
+                    title: this.state.title,
+                    body: this.state.body,
+                    author: this.state.author,
+                    category: this.state.category
+                }
+                addPost(newPost)
             }
-
-            addPost(newPost)
 
             this.finish()
         }
@@ -167,13 +179,23 @@ class PostForm extends Component {
     }
 }
 
-const mapStateToProps = ({ categories }) => ({
-    categories
-})
+const mapStateToProps = ({ categories, posts }, ownProps) => {
+    const { postId } = ownProps.match.params
+
+    console.log(ownProps);
+
+    return {
+        post: posts && posts.find((post) => post.id === postId),
+        categories
+    }
+}
 
 const mapDispatchToProps = (dispatch) => ({
     addPost(post) {
         dispatch(addPost(post))
+    },
+    updatePost(post) {
+        dispatch(updatePost(post))
     }
 })
 

@@ -6,7 +6,9 @@ import { CardActions, IconButton } from 'material-ui'
 import ActionThumbUp from 'material-ui/svg-icons/action/thumb-up'
 import ActionThumbDown from 'material-ui/svg-icons/action/thumb-down'
 import Delete from 'material-ui/svg-icons/action/delete'
+import Edit from 'material-ui/svg-icons/image/edit'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 
 class Post extends Component {
 
@@ -41,6 +43,9 @@ class Post extends Component {
                         </IconButton>
                         <IconButton tooltip='Delete post' onClick={() => this.handleDeletePost(post)}>
                             <Delete />
+                        </IconButton>
+                        <IconButton tooltip='Edit post' containerElement={<Link to={`/post/edit/${post.id}`} />}>
+                            <Edit />
                         </IconButton>
                     </CardActions>
                 </Card>

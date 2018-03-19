@@ -50,3 +50,11 @@ export const addPost = post => dispatch =>
             data
         })
     )
+
+export const updatePost = (id, option) => dispatch =>
+    Api.updatePost(id, option).then(data =>
+        dispatch({
+            type: UPDATE_POST,
+            data
+        })
+    )

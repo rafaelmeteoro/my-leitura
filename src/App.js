@@ -14,6 +14,7 @@ class App extends Component {
                 <Route exact path='/post/new' render={() => (
                     <PostForm />
                 )}/>
+                <Route exact path='/post/edit/:postId' component={PostForm} />
             </div>
         );
     }
