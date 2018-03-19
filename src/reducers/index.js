@@ -33,6 +33,8 @@ const comments = (state = [], action) => {
             return [...state, action.data]
         case ACTIONS.UPDATE_COMMENT:
             return state.map(comment => (action.data.id === comment.id ? action.data : comment))
+        case ACTIONS.DELETE_COMMENT:
+            return state.filter(comment => comment.id !== action.value.id)
         default:
             return state
     }
