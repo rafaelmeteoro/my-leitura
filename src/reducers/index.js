@@ -25,7 +25,17 @@ const posts = (state = [], action) => {
     }
 }
 
+const comments = (state = [], action) => {
+    switch (action.type) {
+        case ACTIONS.FETCH_COMMENTS:
+            return [...action.data]
+        default:
+            return state
+    }
+}
+
 export default combineReducers({
     categories,
-    posts
+    posts,
+    comments
 })
