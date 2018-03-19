@@ -25,6 +25,14 @@ export const fetchPosts = () => dispatch =>
         })
     );
 
+export const fetchPostById = id => dispatch =>
+    Api.getPostById(id).then(data =>
+        dispatch({
+            type: FETCH_POSTS,
+            data: [data]
+        })
+    )
+
 export const votePost = (id, option) => dispatch =>
     Api.votePost(id, option).then(data =>
         dispatch({

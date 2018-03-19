@@ -26,13 +26,15 @@ class Post extends Component {
 
         return (
             <div>
-                <Card style={{ padding: 10, margin: 2}}>
-                    <CardTitle
-                        title={post.title}
-                        subtitle={'Date: ' + formatTimestamp(post.timestamp)}
-                    />
-                    <CardText>Author: {post.author} - Comments: {post.commentCount}</CardText>
-                    <CardText>Score: {post.voteScore}</CardText>
+                <Card style={{ padding: 10, margin: 2 }}>
+                    <Link to={`/${post.category}/${post.id}`} style={{textDecoration: 'none'}}>
+                        <CardTitle
+                            title={post.title}
+                            subtitle={'Date: ' + formatTimestamp(post.timestamp)}
+                        />
+                        <CardText>Author: {post.author} - Comments: {post.commentCount}</CardText>
+                        <CardText>Score: {post.voteScore}</CardText>
+                    </Link>
                     <Divider />
                     <CardActions>
                         <IconButton tooltip='Add vote' onClick={() => this.handleVote(post, 'upVote')}>

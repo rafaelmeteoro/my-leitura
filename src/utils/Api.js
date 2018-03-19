@@ -24,6 +24,10 @@ export const getAllPosts = () =>
     fetch(`${api}/posts`, { headers })
     .then(res => res.json())
 
+export const getPostById = id =>
+    fetch(`${api}/posts/${id}`, { headers })
+    .then(res => res.json())
+
 export const votePost = (id, option) =>
     fetch(`${api}/posts/${id}`, {
         method: 'POST',
