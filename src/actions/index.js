@@ -5,6 +5,7 @@ export const FETCH_CATEGORIES = 'FETCH_CATEGORIES'
 export const FETCH_POSTS = 'FETCH_POSTS'
 export const UPDATE_POST = 'UPDATE_POST'
 export const DELETE_POST = 'DELETE_POST'
+export const ADD_POST = 'ADD_POST'
 
 // Categories actions
 export const fetchCategories = () => dispatch =>
@@ -41,3 +42,11 @@ export const deletePost = data => dispatch =>
             })
         }
     })
+
+export const addPost = post => dispatch =>
+    Api.addPost(post).then(data =>
+        dispatch({
+            type: ADD_POST,
+            data
+        })
+    )

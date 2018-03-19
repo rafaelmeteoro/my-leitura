@@ -7,6 +7,8 @@ import RaisedButton from 'material-ui/RaisedButton'
 import FlatButton from 'material-ui/FlatButton'
 import Dialog from 'material-ui/Dialog'
 import uuid from 'uuid'
+import { addPost } from '../actions'
+import { Redirect } from 'react-router-dom'
 
 class PostForm extends Component {
 
@@ -61,7 +63,9 @@ class PostForm extends Component {
     }
 
     submitPost = (event) => {
-        console.log(uuid().split('-').join(''));
+
+        const { addPost } = this.props
+
         if (this.hasError()) {
             this.showErrorDialog()
         } else {
@@ -73,10 +77,18 @@ class PostForm extends Component {
                 author: this.state.author,
                 category: this.state.category
             }
+
+            addPost(newPost)
+
+            this.finish()
         }
     }
 
     render() {
+        const { finish } = this.state
+        if (finish) {
+            return <Redirect to={'/'} />
+        }
 
         const { categories } = this.props
 
@@ -159,4 +171,10 @@ const mapStateToProps = ({ categories }) => ({
     categories
 })
 
-export default connect(mapStateToProps, null)(PostForm);
+const mapDispatchToProps = (dispatch) => ({
+    addPost(post) {
+        dispatch(addPost(post))
+    }
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(PostForm);
