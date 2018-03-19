@@ -7,6 +7,7 @@ import RaisedButton from 'material-ui/RaisedButton'
 import { connect } from 'react-redux'
 import { fetchPostById, votePost, fetchCommentsByPost } from '../actions'
 import { formatTimestamp } from '../utils/helpers'
+import CommentList from './CommentList'
 
 class PostDetails extends Component {
 
@@ -27,7 +28,6 @@ class PostDetails extends Component {
     render() {
 
         const { post, comments } = this.props
-        console.log(comments);
 
         return (
             <div>
@@ -60,6 +60,7 @@ class PostDetails extends Component {
                             <CardHeader
                                 title={`Comment: ${post.commentCount}`}
                             />
+                            <CommentList comments={comments} />
                         </Card>
                     </div>
                 )}

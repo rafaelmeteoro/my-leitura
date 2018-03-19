@@ -37,10 +37,10 @@ class Post extends Component {
                     </Link>
                     <Divider />
                     <CardActions>
-                        <IconButton tooltip='Add vote' onClick={() => this.handleVote(post, 'upVote')}>
+                        <IconButton tooltip='Add score' onClick={() => this.handleVote(post, 'upVote')}>
                             <ActionThumbUp />
                         </IconButton>
-                        <IconButton tooltip='Sub vote' onClick={() => this.handleVote(post, 'downVote')}>
+                        <IconButton tooltip='Sub score' onClick={() => this.handleVote(post, 'downVote')}>
                             <ActionThumbDown />
                         </IconButton>
                         <IconButton tooltip='Delete post' onClick={() => this.handleDeletePost(post)}>
