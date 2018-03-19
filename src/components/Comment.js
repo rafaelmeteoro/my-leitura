@@ -6,8 +6,13 @@ import ActionThumbDown from 'material-ui/svg-icons/action/thumb-down'
 import Delete from 'material-ui/svg-icons/action/delete'
 import Edit from 'material-ui/svg-icons/image/edit'
 import { connect } from 'react-redux'
+import { voteComment } from '../actions'
 
 class Comment extends Component {
+
+    handleVote = (comment, option) => {
+        this.props.voteComment(comment.id, option)
+    }
 
     render() {
 
@@ -23,10 +28,10 @@ class Comment extends Component {
                     <CardText>Score: {comment.voteScore}</CardText>
                     <Divider />
                     <CardActions>
-                        <IconButton tooltip='Add score'>
+                        <IconButton tooltip='Add score' onClick={() => this.handleVote(comment, 'upVote')}>
                             <ActionThumbUp />
                         </IconButton>
-                        <IconButton tooltip='Sub score'>
+                        <IconButton tooltip='Sub score' onClick={() => this.handleVote(comment, 'downVote')}>
                             <ActionThumbDown />
                         </IconButton>
                         <IconButton tooltip='Delete comment'>
@@ -42,4 +47,10 @@ class Comment extends Component {
     }
 }
 
-export default Comment
+const mapDispatchToProps = dispatch => ({
+    voteComment(comment, option) {
+        dispatch(voteComment(comment, option))
+    }
+})
+
+export default connect(null, mapDispatchToProps)(Comment)

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Card, CardTitle, CardText, Divider, CardHeader } from 'material-ui'
+import { Card, CardTitle, CardText, Divider } from 'material-ui'
 import { CardActions, IconButton } from 'material-ui'
 import ActionThumbUp from 'material-ui/svg-icons/action/thumb-up'
 import ActionThumbDown from 'material-ui/svg-icons/action/thumb-down'
@@ -69,9 +69,7 @@ class PostDetails extends Component {
                 {post && comments.length > 0 && (
                     <div>
                         <Card style={{ padding: 10, margin: 2 }}>
-                            <CardHeader
-                                title={`Comment: ${post.commentCount}`}
-                            />
+                            <CardTitle title='Comments' />
                             <CommentList comments={comments} />
                         </Card>
                     </div>
