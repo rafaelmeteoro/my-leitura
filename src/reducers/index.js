@@ -29,6 +29,8 @@ const comments = (state = [], action) => {
     switch (action.type) {
         case ACTIONS.FETCH_COMMENTS:
             return [...action.data]
+        case ACTIONS.ADD_COMMENT:
+            return [...state, action.data]
         default:
             return state
     }

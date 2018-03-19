@@ -169,8 +169,7 @@ class PostForm extends Component {
                     actions={actions}
                     modal={false}
                     open={this.state.openDialogError}
-                    onRequestClose={this.hideErrorDialog}
-                >
+                    onRequestClose={this.hideErrorDialog}>
                     Please fill all fields.
                 </Dialog>
 

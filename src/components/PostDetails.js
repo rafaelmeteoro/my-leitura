@@ -5,11 +5,16 @@ import ActionThumbUp from 'material-ui/svg-icons/action/thumb-up'
 import ActionThumbDown from 'material-ui/svg-icons/action/thumb-down'
 import RaisedButton from 'material-ui/RaisedButton'
 import { connect } from 'react-redux'
-import { fetchPostById, votePost, fetchCommentsByPost } from '../actions'
+import { fetchPostById, votePost, fetchCommentsByPost, addComment } from '../actions'
 import { formatTimestamp } from '../utils/helpers'
 import CommentList from './CommentList'
+import CommentDialog from './CommentDialog'
 
 class PostDetails extends Component {
+
+    state = {
+        openDialogComment: false
+    }
 
     componentDidMount() {
         const { postId } = this.props.match.params
@@ -19,6 +24,12 @@ class PostDetails extends Component {
 
     componentWillReceiveProps(nextProps) {
 
+    }
+
+    showDialogComment = () => {
+        this.setState({
+            openDialogComment: !this.state.openDialogComment
+        })
     }
 
     handleVote = (post, option) => {
@@ -51,6 +62,7 @@ class PostDetails extends Component {
                         <RaisedButton
                             label='Add Comment'
                             primary={true}
+                            onClick={this.showDialogComment}
                         />
                     </Card>
                 )}
@@ -63,6 +75,14 @@ class PostDetails extends Component {
                             <CommentList comments={comments} />
                         </Card>
                     </div>
+                )}
+                {this.state.openDialogComment && (
+                    <CommentDialog
+                        openDialog={this.state.openDialogComment}
+                        closeDialog={this.showDialogComment}
+                        post={post}
+                        funcOp={this.props.addComment}
+                    />
                 )}
             </div>
         )
@@ -83,6 +103,9 @@ const mapDispatchToProps = dispatch => ({
     },
     fetchCommentsByPost(postId) {
         dispatch(fetchCommentsByPost(postId))
+    },
+    addComment(comment) {
+        dispatch(addComment(comment))
     }
 })
 

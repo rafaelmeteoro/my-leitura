@@ -7,6 +7,7 @@ export const UPDATE_POST = 'UPDATE_POST'
 export const DELETE_POST = 'DELETE_POST'
 export const ADD_POST = 'ADD_POST'
 export const FETCH_COMMENTS = 'FETCH_COMMENTS'
+export const ADD_COMMENT = 'ADD_COMMENT'
 
 // Categories actions
 export const fetchCategories = () => dispatch =>
@@ -68,6 +69,7 @@ export const updatePost = (id, option) => dispatch =>
         })
     )
 
+// Comment actions
 export const fetchCommentsByPost = postId => dispatch =>
     Api.getCommentsByPost(postId).then(data =>
         dispatch({
@@ -75,3 +77,11 @@ export const fetchCommentsByPost = postId => dispatch =>
             data
         })
     )
+
+export const addComment = comment => dispatch =>
+    Api.addComment(comment).then(data => {
+        dispatch({
+            type: ADD_COMMENT,
+            data
+        })
+    })
