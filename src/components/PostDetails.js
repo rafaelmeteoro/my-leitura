@@ -6,6 +6,7 @@ import ActionThumbDown from 'material-ui/svg-icons/action/thumb-down'
 import Delete from 'material-ui/svg-icons/action/delete'
 import Edit from 'material-ui/svg-icons/image/edit'
 import RaisedButton from 'material-ui/RaisedButton'
+import AppBar from 'material-ui/AppBar'
 import { connect } from 'react-redux'
 import { fetchPostById, votePost, fetchCommentsByPost, addComment, deletePost } from '../actions'
 import { formatTimestamp } from '../utils/helpers'
@@ -55,6 +56,10 @@ class PostDetails extends Component {
 
         return (
             <div>
+                <AppBar
+                    title='MyLeitura'
+                    showMenuIconButton={false}
+                />
                 {post && (
                     <Card style={{ padding: 10, margin: 2 }}>
                         <CardTitle
