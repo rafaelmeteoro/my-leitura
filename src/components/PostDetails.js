@@ -3,17 +3,22 @@ import { Card, CardTitle, CardText, Divider } from 'material-ui'
 import { CardActions, IconButton } from 'material-ui'
 import ActionThumbUp from 'material-ui/svg-icons/action/thumb-up'
 import ActionThumbDown from 'material-ui/svg-icons/action/thumb-down'
+import Delete from 'material-ui/svg-icons/action/delete'
+import Edit from 'material-ui/svg-icons/image/edit'
 import RaisedButton from 'material-ui/RaisedButton'
 import { connect } from 'react-redux'
-import { fetchPostById, votePost, fetchCommentsByPost, addComment } from '../actions'
+import { fetchPostById, votePost, fetchCommentsByPost, addComment, deletePost } from '../actions'
 import { formatTimestamp } from '../utils/helpers'
+import { Link } from 'react-router-dom'
 import CommentList from './CommentList'
 import CommentDialog from './CommentDialog'
+import { Redirect } from 'react-router-dom'
 
 class PostDetails extends Component {
 
     state = {
-        openDialogComment: false
+        openDialogComment: false,
+        postDeleted: false
     }
 
     componentDidMount() {
@@ -32,9 +37,21 @@ class PostDetails extends Component {
         this.props.votePost(post.id, option)
     }
 
+    handleDeletePost = (post) => {
+        this.props.deletePost(post)
+        this.setState({
+            postDeleted: true
+        })
+    }
+
     render() {
 
         const { post, comments } = this.props
+        const { postDeleted } = this.state
+
+        if (postDeleted) {
+            return <Redirect to={'/'} />
+        }
 
         return (
             <div>
@@ -53,6 +70,12 @@ class PostDetails extends Component {
                             </IconButton>
                             <IconButton tooltip='Sub vote' onClick={() => this.handleVote(post, 'downVote')}>
                                 <ActionThumbDown />
+                            </IconButton>
+                            <IconButton tooltip='Delete post' onClick={() => this.handleDeletePost(post)}>
+                                <Delete />
+                            </IconButton>
+                            <IconButton tooltip='Edit post' containerElement={<Link to={`/post/edit/${post.id}`} />}>
+                                <Edit />
                             </IconButton>
                         </CardActions>
                         <RaisedButton
@@ -100,6 +123,9 @@ const mapDispatchToProps = dispatch => ({
     },
     addComment(comment) {
         dispatch(addComment(comment))
+    },
+    deletePost(post) {
+        dispatch(deletePost(post))
     }
 })
 
