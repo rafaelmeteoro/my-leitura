@@ -44,6 +44,7 @@ class Main extends Component {
                                 key={category.name}
                                 label={capitalize(category.name)}
                                 icon={<ContentFilterList />}
+                                containerElement={<Link to={`/${category.path}`} />}
                             />
                         ))}
                     </BottomNavigation>
