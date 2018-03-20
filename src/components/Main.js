@@ -8,8 +8,7 @@ import AppBar from 'material-ui/AppBar'
 import Paper from 'material-ui/Paper'
 import { BottomNavigation, BottomNavigationItem } from 'material-ui/BottomNavigation'
 import ContentFilterList from 'material-ui/svg-icons/content/filter-list'
-import { FloatingActionButton } from 'material-ui'
-import ContentAdd from 'material-ui/svg-icons/content/add'
+import RaisedButton from 'material-ui/RaisedButton'
 
 class Main extends Component {
 
@@ -31,9 +30,12 @@ class Main extends Component {
 
                 <PostList posts={posts} />
 
-                <FloatingActionButton style={{ marginLeft: 30, marginBottom: 30 }} containerElement={<Link to={'/post/new'} />}>
-                    <ContentAdd />
-                </FloatingActionButton>
+                <RaisedButton
+                    style={{ marginLeft: 30, marginBottom: 30 }}
+                    label='Add Post'
+                    primary={true}
+                    containerElement={<Link to={`/post/new`} />}                    
+                />
 
                 <Paper zDepth={1}>
                     <BottomNavigation>

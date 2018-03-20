@@ -63,7 +63,6 @@ class PostForm extends Component {
     }
 
     submitPost = (event) => {
-
         const { addPost, updatePost, post } = this.props
 
         if (this.hasError()) {
@@ -145,8 +144,7 @@ class PostForm extends Component {
                         <SelectField
                             floatingLabelText='Category'
                             value={this.state.category}
-                            onChange={this.handleCategoryChange}
-                        >
+                            onChange={this.handleCategoryChange}>
                             {categories.map((category) => (
                                 <MenuItem
                                     key={category.path}

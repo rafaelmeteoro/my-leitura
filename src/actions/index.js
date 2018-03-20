@@ -18,7 +18,7 @@ export const fetchCategories = () => dispatch =>
             type: FETCH_CATEGORIES,
             data
         })
-    );
+    )
 
 // Posts actions
 export const fetchPosts = () => dispatch =>
@@ -27,7 +27,7 @@ export const fetchPosts = () => dispatch =>
             type: FETCH_POSTS,
             data
         })
-    );
+    )
 
 export const fetchPostById = id => dispatch =>
     Api.getPostById(id).then(data =>
@@ -36,6 +36,7 @@ export const fetchPostById = id => dispatch =>
             data: [data]
         })
     )
+
 
 export const votePost = (id, option) => dispatch =>
     Api.votePost(id, option).then(data =>
