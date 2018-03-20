@@ -9,3 +9,11 @@ export function capitalize(str = '') {
 export function formatTimestamp(timestamp = 0) {
     return moment(timestamp).format("DD-MM-YYYY hh:mm")
 }
+
+export function order(posts) {
+    if (Array.isArray(posts)) {
+        return posts.sort((obj1, obj2) => obj2.voteScore - obj1.voteScore)
+    } else {
+        posts
+    }
+}

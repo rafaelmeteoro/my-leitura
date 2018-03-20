@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { fetchCategories, fetchPosts } from '../actions'
-import { capitalize } from '../utils/helpers'
+import { capitalize, order } from '../utils/helpers'
 import PostList from './PostList'
 import AppBar from 'material-ui/AppBar'
 import Paper from 'material-ui/Paper'
@@ -34,7 +34,7 @@ class Main extends Component {
                     style={{ marginLeft: 30, marginBottom: 30 }}
                     label='Add Post'
                     primary={true}
-                    containerElement={<Link to={`/post/new`} />}                    
+                    containerElement={<Link to={`/post/new`} />}
                 />
 
                 <Paper zDepth={1}>
@@ -55,7 +55,7 @@ class Main extends Component {
 
 const mapStateToProps = ({ categories, posts }) => ({
     categories,
-    posts
+    posts: order(posts)
 })
 
 const mapDispatchToProps = (dispatch) => ({
