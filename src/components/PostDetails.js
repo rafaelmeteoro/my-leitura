@@ -19,7 +19,8 @@ class PostDetails extends Component {
 
     state = {
         openDialogComment: false,
-        postDeleted: false
+        postDeleted: false,
+        errorFetchPosts: false
     }
 
     componentDidMount() {
