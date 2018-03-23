@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux'
 import * as ACTIONS from '../actions'
+import { ORDER_SCORE } from '../utils/helpers'
 
 const categories = (state = [], action) => {
     switch (action.type) {
@@ -40,8 +41,18 @@ const comments = (state = [], action) => {
     }
 }
 
+const postsOrder = (state = ORDER_SCORE, action) => {
+    switch (action.type) {
+        case ACTIONS.SORT_POSTS:
+            return action.value
+        default:
+            return state
+    }
+}
+
 export default combineReducers({
     categories,
     posts,
-    comments
+    comments,
+    postsOrder
 })

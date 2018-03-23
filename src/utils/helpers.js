@@ -17,3 +17,6 @@ export function order(posts) {
         return posts
     }
 }
+
+export const ORDER_SCORE = 'ORDER_SCORE'
+export const ORDER_TIME = 'ORDER_TIME'
