@@ -16,9 +16,9 @@ class Comment extends Component {
     }
 
     showDialogComment = () => {
-        this.setState({
-            openDialogComment: !this.state.openDialogComment
-        })
+        this.setState(prevState => ({
+            openDialogComment: !prevState.openDialogComment
+        }))
     }
 
     handleVote = (comment, option) => {
