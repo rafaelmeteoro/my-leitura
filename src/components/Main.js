@@ -56,7 +56,7 @@ class Main extends Component {
 
 const mapStateToProps = ({ categories, posts, postsOrder }) => ({
     categories,
-    posts: order(posts && posts.slice(), postsOrder)
+    posts: order([...posts], postsOrder)
 })
 
 const mapDispatchToProps = (dispatch) => ({

@@ -30,7 +30,7 @@ class Category extends Component {
 }
 
 const mapStateToProps = ({ posts, postsOrder }) => ({
-    posts: order(posts && posts.slice(), postsOrder)
+    posts: order([...posts], postsOrder)
 })
 
 const mapDispatchToProps = (dispatch) => ({
