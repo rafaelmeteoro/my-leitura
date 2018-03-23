@@ -69,6 +69,7 @@ class PostDetails extends Component {
                         />
                         <CardText>Author: {post.author} - Comments: {post.commentCount}</CardText>
                         <CardText>Score: {post.voteScore}</CardText>
+                        <CardText style={{fontSize: 28}}>{post.body}</CardText>
                         <Divider />
                         <CardActions>
                             <IconButton tooltip='Add vote' onClick={() => this.handleVote(post, 'upVote')}>
