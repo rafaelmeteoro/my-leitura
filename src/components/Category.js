@@ -4,8 +4,21 @@ import { fetchPostsByCategory } from '../actions'
 import { order } from '../utils/helpers'
 import PostList from './PostList'
 import AppBar from 'material-ui/AppBar'
+import NavigationArrowBack from 'material-ui/svg-icons/navigation/arrow-back'
+import { Redirect } from 'react-router-dom'
+import { IconButton } from 'material-ui'
 
 class Category extends Component {
+
+    state = {
+        backClick: false
+    }
+
+    handleBackArrow = () => {
+        this.setState({
+            backClick: true
+        })
+    }
 
     componentDidMount() {
         const { category } = this.props.match.params
@@ -15,12 +28,18 @@ class Category extends Component {
     render() {
 
         const { posts } = this.props
+        const { backClick } = this.state
+
+        if (backClick) {
+            return <Redirect to={'/'} />
+        }
 
         return (
             <div>
                 <AppBar
                     title='MyLeitura'
-                    showMenuIconButton={false}
+                    onLeftIconButtonClick={this.handleBackArrow}
+                    iconElementLeft={<IconButton><NavigationArrowBack /></IconButton>}
                 />
 
                 <PostList posts={posts} />
