@@ -19,7 +19,7 @@ class Main extends Component {
 
     render() {
 
-        const { categories, posts } = this.props
+        const { categories, posts} = this.props
 
         return (
             <div>
@@ -54,9 +54,9 @@ class Main extends Component {
     }
 }
 
-const mapStateToProps = ({ categories, posts }) => ({
+const mapStateToProps = ({ categories, posts, postsOrder }) => ({
     categories,
-    posts: order(posts)
+    posts: order(posts && posts.slice(), postsOrder)
 })
 
 const mapDispatchToProps = (dispatch) => ({
