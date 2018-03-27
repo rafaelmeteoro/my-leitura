@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Card, CardTitle, CardText, Divider } from 'material-ui'
 import { CardActions, IconButton } from 'material-ui'
+import NavigationArrowBack from 'material-ui/svg-icons/navigation/arrow-back'
 import ActionThumbUp from 'material-ui/svg-icons/action/thumb-up'
 import ActionThumbDown from 'material-ui/svg-icons/action/thumb-down'
 import Delete from 'material-ui/svg-icons/action/delete'
@@ -20,6 +21,7 @@ class PostDetails extends Component {
     state = {
         openDialogComment: false,
         postDeleted: false,
+        backClick: false,
         errorFetchPosts: false
     }
 
@@ -46,12 +48,18 @@ class PostDetails extends Component {
         })
     }
 
+    handleBackArrow = () => {
+        this.setState({
+            backClick: true
+        })
+    }
+
     render() {
 
         const { post, comments } = this.props
-        const { postDeleted } = this.state
+        const { postDeleted, backClick } = this.state
 
-        if (postDeleted) {
+        if (postDeleted || backClick) {
             return <Redirect to={'/'} />
         }
 
@@ -59,7 +67,8 @@ class PostDetails extends Component {
             <div>
                 <AppBar
                     title='MyLeitura'
-                    showMenuIconButton={false}
+                    onLeftIconButtonClick={this.handleBackArrow}
+                    iconElementLeft={<IconButton><NavigationArrowBack /></IconButton>}
                 />
                 {post && (
                     <Card style={{ padding: 10, margin: 2 }}>
@@ -69,6 +78,7 @@ class PostDetails extends Component {
                         />
                         <CardText>Author: {post.author} - Comments: {post.commentCount}</CardText>
                         <CardText>Score: {post.voteScore}</CardText>
+                        <CardText style={{fontSize: 28}}>{post.body}</CardText>
                         <Divider />
                         <CardActions>
                             <IconButton tooltip='Add vote' onClick={() => this.handleVote(post, 'upVote')}>

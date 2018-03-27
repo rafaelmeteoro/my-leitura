@@ -17,7 +17,7 @@ class App extends Component {
                     <Route path='/post/edit/:postId' component={PostForm} />
                     <Route path='/:category/:postId' component={PostDetails} />
                     <Route path='/:category' component={Category} />
-                    <Route path='/' component={PageNotFound} />
+                    <Route component={PageNotFound} />
                 </Switch>
             </div>
         )

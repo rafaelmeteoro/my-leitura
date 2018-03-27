@@ -2,9 +2,11 @@ import React from 'react'
 import Post from './Post'
 import List, { ListItem } from 'material-ui/List'
 import { Card, CardTitle } from 'material-ui'
+import OrderPosts from './OrderPosts'
 
 const PostList = ({ posts }) => (
     <div>
+        <OrderPosts />
         {posts && (posts.length > 0) && (
             <List>
                 {posts && posts.map((post) => (

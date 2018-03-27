@@ -59,7 +59,7 @@ class PostForm extends Component {
             body.length === 0 ||
             author.length === 0 ||
             category.length === 0
-        ) ? true : false
+        )
     }
 
     submitPost = (event) => {
