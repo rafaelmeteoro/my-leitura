@@ -15,6 +15,7 @@ import { Link } from 'react-router-dom'
 import CommentList from './CommentList'
 import CommentDialog from './CommentDialog'
 import { Redirect } from 'react-router-dom'
+import _ from 'lodash'
 
 class PostDetails extends Component {
 
@@ -54,12 +55,8 @@ class PostDetails extends Component {
         })
     }
 
-    isEmpty(obj) {
-        for (var prop in obj) {
-            if (obj.hasOwnProperty(prop))
-                return false
-        }
-        return JSON.stringify(obj) === JSON.stringify({})
+    isPostEmpty(postObj) {        
+        return _.isEmpty(postObj)
     }
 
     render() {
@@ -78,7 +75,7 @@ class PostDetails extends Component {
                     onLeftIconButtonClick={this.handleBackArrow}
                     iconElementLeft={<IconButton><NavigationArrowBack /></IconButton>}
                 />
-                {post && !this.isEmpty(post) && (
+                {post && !this.isPostEmpty(post) && (
                     <Card style={{ padding: 10, margin: 2 }}>
                         <CardTitle
                             title={post.title}
@@ -109,7 +106,7 @@ class PostDetails extends Component {
                         />
                     </Card>
                 )}
-                {post && !this.isEmpty(post) && comments.length > 0 && (
+                {post && !this.isPostEmpty(post) && comments.length > 0 && (
                     <div>
                         <Card style={{ padding: 10, margin: 2 }}>
                             <CardTitle title='Comments' />
@@ -117,7 +114,7 @@ class PostDetails extends Component {
                         </Card>
                     </div>
                 )}
-                {this.isEmpty(post) && (
+                {this.isPostEmpty(post) && (
                     <Card style={{ padding: 20, margin: 20 }}>
                         <CardTitle
                             title={'No posts to display'}
