@@ -54,10 +54,18 @@ class PostDetails extends Component {
         })
     }
 
+    isEmpty(obj) {
+        for (var prop in obj) {
+            if (obj.hasOwnProperty(prop))
+                return false
+        }
+        return JSON.stringify(obj) === JSON.stringify({})
+    }
+
     render() {
 
         const { post, comments } = this.props
-        const { postDeleted, backClick } = this.state
+        const { postDeleted, backClick } = this.state                
 
         if (postDeleted || backClick) {
             return <Redirect to={'/'} />
@@ -70,7 +78,7 @@ class PostDetails extends Component {
                     onLeftIconButtonClick={this.handleBackArrow}
                     iconElementLeft={<IconButton><NavigationArrowBack /></IconButton>}
                 />
-                {post && (
+                {post && !this.isEmpty(post) && (
                     <Card style={{ padding: 10, margin: 2 }}>
                         <CardTitle
                             title={post.title}
@@ -101,13 +109,20 @@ class PostDetails extends Component {
                         />
                     </Card>
                 )}
-                {post && comments.length > 0 && (
+                {post && !this.isEmpty(post) && comments.length > 0 && (
                     <div>
                         <Card style={{ padding: 10, margin: 2 }}>
                             <CardTitle title='Comments' />
                             <CommentList comments={comments} />
                         </Card>
                     </div>
+                )}
+                {this.isEmpty(post) && (
+                    <Card style={{ padding: 20, margin: 20 }}>
+                        <CardTitle
+                            title={'No posts to display'}
+                        />
+                    </Card>
                 )}
                 {this.state.openDialogComment && (
                     <CommentDialog
